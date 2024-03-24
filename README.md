@@ -96,6 +96,35 @@ LIMIT 10
 | Audi A6                                                                                                                            | Germany      | 5685.33        | 111282      | 
 | Average of all GM vehicles produced and used in the 10 year life-cycle.                                                            | USA          | 5460.26        | 100621      |         
 
+## Top những ngành có lượng khí thải cao nhất
+
+Những ngành thiết bị điện tử, chế tạo máy, và thiết bị điện tử phần cứng thải ra nhiều nhất
+```
+SELECT 	industry_groups.industry_group,
+		product.product_cfp		
+FROM industry_groups
+JOIN 
+(SELECT industry_group_id, SUM(carbon_footprint_pcf) as product_cfp
+FROM product_emissions
+GROUP BY industry_group_id) AS product
+ON industry_groups.id = product.industry_group_id
+ORDER BY product_cfp DESC
+LIMIT 10
+
+```
+
+| industry_group                                   | product_cfp | 
+| -----------------------------------------------: | ----------: | 
+| Electrical Equipment and Machinery               | 9801558     | 
+| Automobiles & Components                         | 2582264     | 
+| Materials                                        | 577595      | 
+| Technology Hardware & Equipment                  | 363776      | 
+| Capital Goods                                    | 258712      | 
+| "Food, Beverage & Tobacco"                       | 111131      | 
+| "Pharmaceuticals, Biotechnology & Life Sciences" | 72486       | 
+| Chemicals                                        | 62369       | 
+| Software & Services                              | 46544       | 
+| Media                                            | 23017       |         
 ## Top những sản phẩm theo ngành có lượng khí thải carbon cao nhất
 
 Những sản phẩm này đến từ các các ngành công nghiệp chế tạo máy, và ô tô
