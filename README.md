@@ -17,6 +17,23 @@ limit 5
 | 10261-1-2017 | 14         | 16         | 25                | 2017 | Multifunction Printers                                          | 110       | 1488                 | 30.65                      | 5.51                         | 63.84                        | 
 | 10261-2-2017 | 14         | 16         | 25                | 2017 | Multifunction Printers                                          | 110       | 1818                 | 25.08                      | 4.51                         | 70.41                        |         
 
+## Lượng khí thải carbon có xu hướng tăng mạnh vào năm 2015 và sau đó giảm dần 
+
+Xu hướng lượng khí thải carborn
+```
+SELECT year, sum(carbon_footprint_pcf) AS total_carbon_footprint_pcf
+FROM product_emissions
+GROUP BY year
+```
+
+| year | total_carbon_footprint_pcf | 
+| ---: | -------------------------: | 
+| 2013 | 503857                     | 
+| 2014 | 624226                     | 
+| 2015 | 10840415                   | 
+| 2016 | 1640182                    | 
+| 2017 | 340271                     |         
+
 ## Top 10 countries with the highest contribution to carbon emissions
 
 Order by carbon_footprint_pcf
