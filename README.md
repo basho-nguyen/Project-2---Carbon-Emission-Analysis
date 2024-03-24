@@ -64,6 +64,37 @@ LIMIT 10
 | Taiwan       | 62875.00     | 
 | India        | 24574.00     |         
 
+## Top 10 quốc gia có sản phẩm có lượng khí thải carbon cao nhất
+
+Tây Ban Nha có tới 4 sản phẩm trong top, tiếp theo là Nhật Bản -> các quốc gia này cần có biện pháp để giảm lượng khí thải carborn
+```
+SELECT 	product.product_name,
+		countries.country_name,
+		ROUND(product.product_weight,2) AS product_weight,
+		product.product_cfp		
+FROM countries
+JOIN 
+(SELECT product_name, SUM(weight_kg) as product_weight, SUM(carbon_footprint_pcf) as product_cfp, country_id
+FROM product_emissions
+GROUP BY product_name) AS product
+ON countries.id = product.country_id
+ORDER BY product_cfp desc
+LIMIT 10
+
+```
+
+| product_name                                                                                                                       | country_name | product_weight | product_cfp | 
+| ---------------------------------------------------------------------------------------------------------------------------------: | -----------: | -------------: | ----------: | 
+| Wind Turbine G128 5 Megawats                                                                                                       | Spain        | 600000         | 3718044     | 
+| Wind Turbine G132 5 Megawats                                                                                                       | Spain        | 600000         | 3276187     | 
+| Wind Turbine G114 2 Megawats                                                                                                       | Spain        | 400000         | 1532608     | 
+| Wind Turbine G90 2 Megawats                                                                                                        | Spain        | 361000         | 1251625     | 
+| TCDE                                                                                                                               | Japan        | 24000          | 198150      | 
+| Land Cruiser Prado. FJ Cruiser. Dyna trucks. Toyoace.IMV def unit.                                                                 | Japan        | 2272.33        | 191687      | 
+| Retaining wall structure with a main wall (sheet pile): 136 tonnes of steel sheet piles and 4 tonnes of tierods per 100 meter wall | Luxembourg   | 140000         | 167000      | 
+| Electric Motor                                                                                                                     | Brazil       | 270            | 160655      | 
+| Audi A6                                                                                                                            | Germany      | 5685.33        | 111282      | 
+| Average of all GM vehicles produced and used in the 10 year life-cycle.                                                            | USA          | 5460.26        | 100621      |         
 
 ## Top những sản phẩm theo ngành có lượng khí thải carbon cao nhất
 
