@@ -65,6 +65,37 @@ LIMIT 10
 | India        | 24574.00     |         
 
 
+## Top những sản phẩm theo ngành có lượng khí thải carbon cao nhất
+
+Những sản phẩm này đến từ các các ngành công nghiệp chế tạo máy, và ô tô
+```
+SELECT 	product.product_name,
+		industry_groups.industry_group,
+		ROUND(product.product_weight,2) AS product_weight,
+		product.product_cfp		
+FROM industry_groups
+JOIN 
+(SELECT product_name, SUM(weight_kg) as product_weight, SUM(carbon_footprint_pcf) as product_cfp, industry_group_id
+FROM product_emissions
+GROUP BY product_name) AS product
+ON industry_groups.id = product.industry_group_id
+ORDER BY product_cfp desc
+LIMIT 10
+
+```
+
+| product_name                                                                                                                       | industry_group                     | product_weight | product_cfp | 
+| ---------------------------------------------------------------------------------------------------------------------------------: | ---------------------------------: | -------------: | ----------: | 
+| Wind Turbine G128 5 Megawats                                                                                                       | Electrical Equipment and Machinery | 600000         | 3718044     | 
+| Wind Turbine G132 5 Megawats                                                                                                       | Electrical Equipment and Machinery | 600000         | 3276187     | 
+| Wind Turbine G114 2 Megawats                                                                                                       | Electrical Equipment and Machinery | 400000         | 1532608     | 
+| Wind Turbine G90 2 Megawats                                                                                                        | Electrical Equipment and Machinery | 361000         | 1251625     | 
+| TCDE                                                                                                                               | Materials                          | 24000          | 198150      | 
+| Land Cruiser Prado. FJ Cruiser. Dyna trucks. Toyoace.IMV def unit.                                                                 | Automobiles & Components           | 2272.33        | 191687      | 
+| Retaining wall structure with a main wall (sheet pile): 136 tonnes of steel sheet piles and 4 tonnes of tierods per 100 meter wall | Materials                          | 140000         | 167000      | 
+| Electric Motor                                                                                                                     | Capital Goods                      | 270            | 160655      | 
+| Audi A6                                                                                                                            | Automobiles & Components           | 5685.33        | 111282      | 
+| Average of all GM vehicles produced and used in the 10 year life-cycle.                                                            | Automobiles & Components           | 5460.26        | 100621      |         
 ## Top những sản phẩm theo ngành có ít lượng khí thải carborn nhất
 
 Đa phần các sản phẩm có ít lương khí thải đề từ ngành Food, Beverage & Tobacco
