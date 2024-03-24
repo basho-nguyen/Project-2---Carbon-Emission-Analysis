@@ -16,3 +16,34 @@ limit 5
 | 10222-1-2013 | 83         | 28         | 8                 | 2013 | Office Chair                                                    | 20.68     | 73                   | 80.63                      | 17.36                        | 2.01                         | 
 | 10261-1-2017 | 14         | 16         | 25                | 2017 | Multifunction Printers                                          | 110       | 1488                 | 30.65                      | 5.51                         | 63.84                        | 
 | 10261-2-2017 | 14         | 16         | 25                | 2017 | Multifunction Printers                                          | 110       | 1818                 | 25.08                      | 4.51                         | 70.41                        |         
+
+## Top 10 companies with the highest contribution to carbon emissions
+
+
+```
+SELECT companies.company_name,
+	sum_carbon_footprint_pcf_by_company.sum_carbon_footprint_pcf
+FROM companies
+JOIN (select company_id, sum(carbon_footprint_pcf) AS sum_carbon_footprint_pcf from product_emissions
+		group by company_id
+		order by sum_carbon_footprint_pcf DESC
+		limit 10) 
+		AS sum_carbon_footprint_pcf_by_company
+ON companies.id = sum_carbon_footprint_pcf_by_company.company_id
+ORDER BY sum_carbon_footprint_pcf desc
+	
+
+```
+
+| company_name                            | sum_carbon_footprint_pcf | 
+| --------------------------------------: | -----------------------: | 
+| "Gamesa Corporación Tecnológica, S.A."  | 9778464                  | 
+| Daimler AG                              | 1594300                  | 
+| Volkswagen AG                           | 655960                   | 
+| "Mitsubishi Gas Chemical Company, Inc." | 212016                   | 
+| "Hino Motors, Ltd."                     | 191687                   | 
+| Arcelor Mittal                          | 167007                   | 
+| Weg S/A                                 | 160655                   | 
+| General Motors Company                  | 137007                   | 
+| "Lexmark International, Inc."           | 132012                   | 
+| "Daikin Industries, Ltd."               | 105600                   |         
