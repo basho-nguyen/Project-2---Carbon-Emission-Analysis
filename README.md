@@ -17,6 +17,36 @@ limit 5
 | 10261-1-2017 | 14         | 16         | 25                | 2017 | Multifunction Printers                                          | 110       | 1488                 | 30.65                      | 5.51                         | 63.84                        | 
 | 10261-2-2017 | 14         | 16         | 25                | 2017 | Multifunction Printers                                          | 110       | 1818                 | 25.08                      | 4.51                         | 70.41                        |         
 
+## Top 10 countries with the highest contribution to carbon emissions
+
+Order by carbon_footprint_pcf
+```
+SELECT countries.country_name,
+	ROUND(emission_by_country.carbon_footprint_pcf_by_country,2) AS emission_CFP
+FROM countries
+JOIN 
+(SELECT country_id, sum(carbon_footprint_pcf) as carbon_footprint_pcf_by_country
+FROM product_emissions
+group by country_id) AS emission_by_country
+ON countries.id = emission_by_country.country_id
+ORDER BY emission_CFP DESC
+LIMIT 10
+
+```
+
+| country_name | emission_CFP | 
+| -----------: | -----------: | 
+| Spain        | 9786130.00   | 
+| Germany      | 2251225.00   | 
+| Japan        | 653237.00    | 
+| USA          | 518381.00    | 
+| South Korea  | 186965.00    | 
+| Brazil       | 169337.00    | 
+| Luxembourg   | 167007.00    | 
+| Netherlands  | 70417.00     | 
+| Taiwan       | 62875.00     | 
+| India        | 24574.00     |         
+
 ## Top 10 companies with the highest contribution to carbon emissions
 
 
